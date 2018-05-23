@@ -14,8 +14,6 @@
 // Data Structures and Algorithms in C++, Goodrich, Tamassia, and Mount, 2nd Ed., 2011.
 //
 
-#pragma once
-#include <stdexcept>
 using namespace std;
 template <typename E> class DLinkedList;	// forward declaration to be used when declaring DNode
 
@@ -41,14 +39,14 @@ public:
 	void removeFront();			         // remove from front
 	void removeBack();			         // remove from back
 	int size() const;					// list size
-	//void swapFirstAndLast();			// Where node elements get swapped 
+										//void swapFirstAndLast();			// Where node elements get swapped 
 	void deal();
 	void print();
 	void printHead();
 	DNode<E>* getHead();
 	//void shuffle();
 	void emptyList();
-	
+
 private:                               // local type definitions
 	int     n;							// number of items
 	DNode<E>* header;				         // header sentinel
@@ -59,7 +57,7 @@ protected:
 };
 
 template <typename E>
-void DLinkedList<E>::emptyList(){
+void DLinkedList<E>::emptyList() {
 	while (!empty()) removeFront();
 }
 
@@ -105,9 +103,9 @@ template <typename E>
 void DLinkedList<E>::printHead()
 {
 	DNode<E>* topCard = trailer->prev;
-	int a = topCard ->elem.getNumber();
-	string b = topCard ->elem.getSuit();
-	string c = topCard ->elem.getFace();
+	int a = topCard->elem.getNumber();
+	string b = topCard->elem.getSuit();
+	string c = topCard->elem.getFace();
 
 	cout << a << " " << b << " " << c << "\n";
 
@@ -117,62 +115,62 @@ template <typename E>
 void DLinkedList<E>::print()
 {
 	DNode<E>* topCard = header->next;
-	int a = topCard ->elem.getNumber();
-	string b = topCard ->elem.getSuit();
-	string c = topCard ->elem.getFace();
+	int a = topCard->elem.getNumber();
+	string b = topCard->elem.getSuit();
+	string c = topCard->elem.getFace();
 
 	int i = n;
-	while (topCard->next != NULL)
+	while (topCard != trailer)
 	{
-		cout << i << ": " << a << " " << b << " "  << c << " \n" ;
-		topCard = topCard ->next;
+		cout << i << ": " << a << " " << b << " " << c << " \n";
+		topCard = topCard->next;
 		a = topCard->elem.getNumber();
 		b = topCard->elem.getSuit();
-		c = topCard ->elem.getFace();
+		c = topCard->elem.getFace();
 		i--;
 	}
 	cout << endl;
 }
 
 template <typename E>
-void DLinkedList<E>::deal(){
+void DLinkedList<E>::deal() {
 	//pick a random number
-	srand (time(NULL)); //initialize random seed
-	/*int diff = n;*/
+	srand(time(NULL)); //initialize random seed
+					   /*int diff = n;*/
 	int prob = 0;
 	/*prob = n - diff;*/
-	prob = rand() % n-1;
+	prob = rand() % n - 1;
 
-	DNode<E>* topCard = header -> next; //make the topCard the temporary variable
-	//searches the entire deck based on the probability
+	DNode<E>* topCard = header->next; //make the topCard the temporary variable
+									  //searches the entire deck based on the probability
 
 	for (int i = 0; i < prob; i++) //searching for card from probability
 	{
-		topCard = topCard ->next;
+		topCard = topCard->next;
 	}
 	//topcard is now the card being dealt
 
 	//these are the topcard's next and previous pointers
-	DNode<E>* topCardNext = topCard -> next;
-	DNode<E>* topCardPrev = topCard -> prev;
+	DNode<E>* topCardNext = topCard->next;
+	DNode<E>* topCardPrev = topCard->prev;
 
 	//made the trailer previous one word to save space lol
-	DNode<E>* trailerPrev = trailer -> prev;
-	
+	DNode<E>* trailerPrev = trailer->prev;
+
 	//when you deal the card, you want the dealt card to be removed
-	//we are going to add it to the front so we can remove front
+	//we are going to add it to the bottom so we can remove from back
 
 	//linking the topCard to trailer
-	topCard -> next = trailer;
-	trailer -> prev = topCard;
+	topCard->next = trailer;
+	trailer->prev = topCard;
 
 	//linking the former trailer previous next to topCard
-	trailerPrev->next= topCard;
-	topCard ->prev = trailerPrev;
+	trailerPrev->next = topCard;
+	topCard->prev = trailerPrev;
 
 	//linking the topCard's former previous to top card's former next
-	topCardPrev -> next = topCardNext;
-	topCardNext -> prev = topCardPrev;
+	topCardPrev->next = topCardNext;
+	topCardNext->prev = topCardPrev;
 
 }
 
@@ -261,7 +259,7 @@ void DLinkedList<E>::remove(DNode<E>* v) {	// remove node v
 	DNode<E>* u = v->prev;				         // predecessor
 	DNode<E>* w = v->next;				         // successor
 	u->next = w;				                  // unlink v from list
-	w ->prev = u;
+	w->prev = u;
 	delete v;
 	n--;
 }
@@ -277,8 +275,8 @@ template <typename E>
 void DLinkedList<E>::removeBack()		// remove from back
 {
 	if (empty()) throw length_error("empty list");
-	remove(trailer->prev);	
-	
+	remove(trailer->prev);
+
 }
 
 template <typename E>
