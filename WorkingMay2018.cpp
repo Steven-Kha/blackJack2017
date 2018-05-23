@@ -1,15 +1,3 @@
-//main.cpp
-//Details
-//Activity
-//LAST YEAR
-//
-//You uploaded an item
-//Sep 25, 2016
-//Text
-//main.cpp
-//No recorded activity before September 25, 2016
-//New Team Drive
-
 #include <iostream>
 #include <string>
 #include <stdio.h>
